@@ -77,3 +77,21 @@ from emp;
 from emp
 where comm IS NOT NULL;
 
+20.
+--select ename
+from emp
+where length(ename)=5;
+
+22.
+--select *
+from emp
+where deptno not in (10,20,40);
+
+23.
+--select *
+from emp
+where job!= 'PRESIDENT' and job!='MANAGER';
+
+24.
+--SELECT MAX(sal)
+from emp
