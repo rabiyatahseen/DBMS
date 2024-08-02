@@ -25,36 +25,55 @@ insert into emp values(7876, 'ADAMS', 'CLERK', 7788, to_date('13-7-1987', 'dd-mm
 insert into emp values(7900, 'JAMES', 'CLERK', 7698, to_date('3-12-1981','dd-mm-yyyy'), 950, null, 30);
 insert into emp values(7934, 'MILLER', 'CLERK', 7782, to_date('23-1-1982','dd-mm-yyyy'),1300, null, 10);
 
-1. select *
+1. 
+--select *
 from emp;
 
-2. SELECT *
+2. 
+--SELECT *
 FROM EMP
 WHERE deptno = 10;
 
-3. select *
+3. 
+--select *
 from emp
 where deptno!= 30;
 
-4. select count(*)
+4. 
+--select count(*)
 from emp;
 
-5. select *
+5. 
+--select *
 from emp
 order by sal desc;
 
-6. select*
+6.
+--select*
 from emp
 where rownum<=5;
 
-7. select *
+7.
+--select *
 from emp
 order by deptno asc,sal desc;
 
-10.select*
+10.
+--select*
 from emp
 where mgr in(7698, 7566) and sal > 1500;
 
-11.select *
+11.
+--select *
 from emp
 where sal< 3000;
+
+14.
+--select distinct job
+from emp;
+
+16.
+--select ename
+from emp
+where comm IS NOT NULL;
+
