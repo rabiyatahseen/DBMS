@@ -94,4 +94,54 @@ where job!= 'PRESIDENT' and job!='MANAGER';
 
 24.
 --SELECT MAX(sal)
+from emp;
+
+25.
+--select avg(sal)
 from emp
+where job = 'SALESMAN';
+
+26.
+--SELECT ename
+from emp
+where ename like '_L%';
+
+28.
+--select deptno
+from emp
+group by deptno
+having count(empno)=3;
+
+29.
+--select deptno,sum(sal)
+from emp
+group by deptno
+order by deptno;
+
+30.
+--select deptno,min(sal),max(sal)
+from emp
+group by deptno
+order by deptno;
+
+31.
+--select ename,empno,dname,loc
+from emp natural join dept;
+         or
+select ename,empno,dname,loc
+feom emp,dept
+where emp.deptno=dept.deptno;
+
+32.
+--select dept.deptno
+from emp right join dept
+on emp.deptno=dept.deptno
+group by dept.deptno
+having count(empno)=0;
+
+34.
+--SELECT ename,empno
+FROM emp
+WHERE EMPNO NOT IN ( SELECT DISTINCT mgr
+               FROM emp 
+               WHERE mgr IS NOT NULL);
