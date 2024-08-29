@@ -58,6 +58,16 @@ where rownum<=5;
 from emp
 order by deptno asc,sal desc;
 
+8.
+--SELECT * 
+FROM emp 
+WHERE TO_CHAR(hiredate, 'YYYY') = '1981';
+
+9.
+SELECT * 
+FROM emp 
+WHERE comm IS NULL;
+
 10.
 --select*
 from emp
@@ -68,19 +78,47 @@ where mgr in(7698, 7566) and sal > 1500;
 from emp
 where sal< 3000;
 
+12.
+
+
+13.
+SELECT SYSDATE 
+FROM dual;
+
 14.
 --select distinct job
 from emp;
+
+15.
+SELECT INITCAP(ename) 
+FROM emp 
+WHERE ename LIKE 'J%' OR ename LIKE 'A%' OR ename LIKE 'M%';
 
 16.
 --select ename
 from emp
 where comm IS NOT NULL;
 
+17.
+SELECT empno, ename, sal, sal * 1.15 AS increased_salary 
+FROM emp;
+
+18.
+SELECT e.ename AS employee, m.ename AS manager 
+FROM emp e 
+LEFT JOIN emp m ON e.mgr = m.empno;
+
+19.
+SELECT e.ename, e.deptno 
+FROM emp e 
+WHERE e.sal > (SELECT AVG(sal) FROM emp WHERE deptno = e.deptno);
+
 20.
 --select ename
 from emp
 where length(ename)=5;
+
+21.
 
 22.
 --select *
@@ -105,6 +143,9 @@ where job = 'SALESMAN';
 --SELECT ename
 from emp
 where ename like '_L%';
+
+27.
+
 
 28.
 --select deptno
@@ -139,9 +180,86 @@ on emp.deptno=dept.deptno
 group by dept.deptno
 having count(empno)=0;
 
+33.
+SELECT d.dname 
+FROM dept d 
+JOIN emp e ON d.deptno = e.deptno
+GROUP BY d.dname;
+
 34.
 --SELECT ename,empno
 FROM emp
 WHERE EMPNO NOT IN ( SELECT DISTINCT mgr
                FROM emp 
                WHERE mgr IS NOT NULL);
+
+35.
+
+36.
+SELECT LOWER(ename), INITCAP(job) 
+FROM emp;
+
+37.
+CREATE TABLE emp1 AS 
+SELECT * FROM emp 
+WHERE deptno = 10;
+
+38.
+
+40.
+SELECT * 
+FROM emp 
+WHERE sal <= (SELECT sal FROM emp WHERE ename = 'ADAMS');
+
+41.
+SELECT * 
+FROM emp 
+WHERE mgr = (SELECT empno FROM emp WHERE ename = 'BLAKE');
+
+42.
+SELECT ename, comm 
+FROM emp 
+WHERE comm = (SELECT MAX(comm) FROM emp WHERE comm IS NOT NULL);
+
+43.
+
+44.
+SELECT e.* 
+FROM emp e 
+JOIN dept d ON e.deptno = d.deptno 
+WHERE d.loc = 'DALLAS';
+
+45.
+DELETE FROM emp 
+WHERE deptno IN (10, 20);
+
+
+46.
+DELETE FROM emp 
+WHERE comm IS NULL;
+
+47.
+DELETE FROM emp 
+WHERE sal > (SELECT AVG(sal) FROM emp AS e WHERE e.deptno = emp.deptno);
+
+48.
+UPDATE emp 
+SET ename = 'ANDY' 
+WHERE ename = 'JONES';
+
+49.
+UPDATE emp 
+SET sal = sal * 1.05 
+WHERE comm < 1000;
+
+98.
+
+99.
+UPDATE emp 
+SET sal = sal * 1.01 
+WHERE sal = (SELECT MIN(sal) FROM emp WHERE deptno = 10);
+
+100.
+UPDATE emp 
+SET comm = comm + 10 
+WHERE deptno = (SELECT deptno FROM dept WHERE loc = 'NEW YORK');
