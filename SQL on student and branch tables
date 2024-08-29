@@ -1,0 +1,341 @@
+create table student(rollno number(5) primary key, name varchar(20), age number(2), bname varchar(5), perc number(5,2));
+
+create table branch(bname varchar(5) primary key, yoe number(4), intake number(3));
+
+
+insert into student values(520, 'RAVI', 19, 'CSE', 75.5);
+insert into student values(444, 'KUMAR', 18, 'ECE', 78);
+insert into student values(510, 'ANIL', 18, 'CSE', 68.5);
+insert into student values(1244, 'RAVI', 19, 'IT', 70);
+insert into student values(530, 'RAVI', 20, 'CSE', 80);
+insert into student values(420, 'RAMU', 19, 'ECE', 76.5);
+
+insert into branch values('CSE', 2008, 180);
+insert into branch values('IT', 2008, 180);
+insert into branch values('ECE', 2009, 120);
+insert into branch values('EEE', 2010, 60);
+
+
+1.select name, perc
+  from student
+  where bname = 'CSE'or bname='IT';
+
+Out Put:NAME PERC
+        RAVI 75.5
+        ANIL 68.5
+        RAVI 70
+        RAVI 80
+
+2.select name
+  from student
+  where perc >= 70;
+
+Output:NAME
+       RAVI
+       KUMAR
+       RAVI
+       RAVI
+       RAMU
+
+3.select name
+  from student
+  where bname='CSE' and perc >= 70;
+
+Output: NAME
+        RAVI
+        RAVI
+
+4.select *
+  from student
+  where age between 15 and 25;
+
+Output:ROLLNO NAME  AGE  BNAME  PERC
+       520    RAVI   19   CSE   75.5
+       444    KUMAR  18   ECE   78
+       510    ANIL   18   CSE   68.5
+       1244   RAVI   19   IT    70
+       530    RAVI  20  CSE  80
+       420.   RAMU  19  ECE  76.5
+5.select *
+  from student
+  where age between 15 and 18;
+
+output:
+ROLLNO NAME AGE BNAME PERC
+444   KUMAR  18  ECE   78
+510   ANIL   18   CSE    68.5
+
+PATTERN MATCHING 
+
+select *
+from student
+where name like 'R%';
+
+ROLLNO NAME AGE BNAME PERC
+520    RAVI 19  CSE   75.5
+1244   RAVI 19  IT    70
+530    RAVI 20  CSE   80
+420    RAMU 19  ECE   76.5
+
+
+AGGREGATE functions in SQL
+
+1.select avg(perc)
+  from student;
+
+output: AVG(PERC)
+        74.75
+
+2. select max(perc)
+   from student;
+
+output:  MAX(PERC)
+         80
+
+3.select count(rollno)
+  from student;
+
+output:  COUNT(ROLLNO)
+              6
+
+4.select max(perc)
+  from student
+  where bname = 'CSE'
+
+output:MAX(PERC)
+         80
+
+5.select max(perc) highest, min(perc)lowest
+  from student;
+
+output:HIGHEST LOWEST
+         80     68.5
+
+6.select count(distinct name)
+  from student;
+
+output:COUNT(DISTINCTNAME)
+              4
+
+7.select name
+  from student
+  where perc =(select max(perc)
+               from student);
+
+output:NAME
+       RAVI
+
+8.select bname, avg(perc)
+  from student
+  group by bname;
+
+output:BNAME   AVG(PERC)
+        CSE    74.666666666666666666666666666666667
+        ECE    77.25
+        IT     70
+9.select bname, max(perc)
+  from student
+  group by bname;
+
+output:BNAME MAX(PERC)
+       CSE    80
+       ECE    78
+       IT     70
+
+10.select bname
+   from student
+   group by bname
+   having avg(perc)>=60;
+
+output:BNAME
+       CSE
+       ECE
+       IT
+
+11.select max(perc)
+   from student
+   where perc <(select max(perc)
+                 from student);
+
+output:MAX(PERC)
+         78
+
+12.select max(perc)
+   from student
+   where bname = 'CSE' and perc < (select max(perc)
+                                   from student
+                               where bname = 'CSE');
+
+output:MAX(PERC)
+        75.5
+
+13.select avg(perc)
+   from student
+   where bname = 'CSE' or bname = 'IT';
+
+output:AVG(PERC)
+        73.5
+
+NULL Values 
+
+1.select *
+from student
+where bname is null;
+
+output:no rows selected.
+
+2.select *
+  from student
+  where bname is not null;
+
+output:ROLLNO  NAME  AGE  BNAME  PERC
+        520   RAVI   19    CSE   75.5
+        444   KUMAR  18    ECE   78
+        510   ANIL   18    CSE   68.5
+        1244  RAVI   19    IT    70
+        530   RAVI   20    CSE   80
+        420   RAMU   19    ECE   76.5
+
+
+SET OPERATIONS IN SQL
+
+1.select name
+ from student
+ where bname = 'CSE'
+ union
+ select name
+ from student
+ where bname = 'IT';
+
+output:NAME
+       ANIL
+       RAVI
+
+2.select name
+ from student
+ where bname = 'CSE'
+ intersect
+ select name
+ from student
+ where bname = 'IT';
+
+output:NAME
+       RAVI
+3.select bname
+ from branch
+ minus
+ select distinct bname
+ from student;
+
+output:BNAME
+        EEE
+
+NESTED Queries 
+
+1.select name 
+  from student
+  where bname in (select bname
+                 from branch
+                 where yoe = 2008);
+
+output: NAME
+        RAVI
+        ANIL
+        RAVI
+        RAVI
+
+2.select name 
+  from student
+  where perc = (select max(perc)
+                from student);
+
+output:NAME
+       RAVI
+
+3.select * 
+ from student
+ where perc > (select avg(perc) 
+               from student);
+
+output:ROLLNO NAME AGE BNAME PERC
+       520 RAVI 19 CSE 75.5
+       444 KUMAR 18 ECE 78
+       530 RAVI 20 CSE 80 
+       420 RAMU 19 ECE 76.5
+
+4.select name
+  from student
+ where perc > any (select avg(perc)
+                   from student
+                   group by bname);
+
+output:NAME
+       RAVI
+       KUMAR
+       RAVI
+       RAMU
+ 
+
+5.select name 
+from student
+where perc > all (select avg(perc) 
+                  from student 
+                  group by bname);
+
+output:NAME
+       KUMAR
+       RAVI
+
+6.select bname 
+  from student
+  group by bname
+  having avg(perc) > = all (select avg(perc
+                            from student
+                            group by bname);
+
+output:BNAME
+        ECE
+
+CO-RELATED NESTED Queries 
+
+1.select * 
+  from student s1
+  where s1.perc > (select avg(s2.perc)
+                   from student s2
+                   where s2.bname = s1.bname);
+
+output:ROLLNO NAME AGE BNAME PERC
+        520 RAVI 19 CSE 75.5
+        444 KUMAR 18 ECE 78
+        530 RAVI 20 CSE 80
+
+2.select b.bname 
+  from branch b
+  where not exists(select *
+                   from student s
+                   where s.bname = b.bname);
+
+output: BNAME
+         EEE
+
+3.select b.bname 
+  from branch b
+  where exists(select *
+               from student s
+               where s.bname = b.bname)
+
+output:BNAME
+       CSE
+       ECE
+       IT
+
+4.select * 
+  from branch b
+  where exists(select *
+               from student s
+               where s.bname = b.bname)
+
+output: BNAME YOE INTAKE
+          CSE 2008 180
+          ECE 2009 120
+           IT 2008 180
