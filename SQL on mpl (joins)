@@ -1,0 +1,147 @@
+JOINS
+
+
+1.select ename
+from emp natural join dept
+where loc = 'NEW YORK';
+or
+select ename
+from emp e,dept d
+where e.deptno = d.deptno and loc = 'NEW YORK';
+
+output:ENAME
+       KING
+       CLARK
+       MILLER
+
+2.select deptno,avg(sal)
+from emp
+group by deptno;
+
+output:DEPTNO	AVG(SAL)
+30  	1566.666666666666666666666666666666666667
+10  	2916.666666666666666666666666666666666667
+20  	2175
+ or
+select dname,avg(sal)
+from emp natural join dept
+group by dname;
+
+output:
+DNAME	      AVG(SAL)
+RESEARCH   	2175
+SALES	      1566.666666666666666666666666666666666667
+ACCOUNTING	 2916.666666666666666666666666666666666667
+
+3.select ename
+from emp 
+where deptno in (select deptno
+                 from dept 
+                 where loc = 'DALLAS');
+
+output:
+ENAME
+JONES
+SCOTT
+FORD
+SMITH
+ADAMS
+
+4.select deptno,dname,avg(sal)
+from emp natural join dept
+group by deptno,dname
+
+output:
+DEPTNO	DNAME	       AVG(SAL)
+10	    ACCOUNTING. 2916.666666666666666666666666666666666667
+30	    SALES
+1566.666666666666666666666666666666666667
+20	    RESEARCH	
+2175
+
+5.select emp.ename
+from emp inner join dept 
+on emp.deptno = dept.deptno;
+
+output:
+ENAME
+KING
+BLAKE
+CLARK
+JONES
+SCOTT
+FORD
+SMITH
+ALLEN
+WARD
+MARTIN
+TURNER
+ADAMS
+JAMES
+MILLER
+
+
+6.select *
+from emp right join dept
+on emp.deptno = dept.deptno;
+
+output:
+EMPNO 	ENAME 	JOB	 MGR 	HIREDATE 	SAL 	COMM 	DEPTNO	 DEPTNO	 DNAME 	LOC
+7839	 KING	 PRESIDENT	  - 	 17-NOV-81 	5000	  - 	 10	 10	ACCOUNTING 	NEW YORK
+7698	 BLAKE	 MANAGER	 7839 	01-MAY-81 	2850	  -  	30	 30	SALES 	CHICAGO
+7782	 CLARK 	MANAGER 	7839 	09-JUN-81 	2450	  - 	 10 	10	ACCOUNTING	NEW YORK
+7566	JONES 	MANAGER 	7839	 02-APR-81	 2975	  -  	20 	20	RESEARCH	 DALLAS
+7788	 SCOTT	 ANALYST	 7566	 13-JUL-87	 3000	  - 	20 	20	RESEARCH 	DALLAS
+7902	 FORD	 ANALYST	 7566	 03-DEC-81 	3000 	 -  	20 	20	RESEARCH 	DALLAS
+7369 	SMITH 	CLERK 	7902 	17-DEC-80 	800 	 -  	20 	20	RESEARCH 	DALLAS
+7499	 ALLEN	 SALESMAN 	7698	 20-FEB-81 	1600	 300	 30 	30	SALES 	CHICAGO
+7521	WARD	 SALESMAN	 7698	 22-FEB-81	1250 	500	 30	 30 	SALES 	CHICAGO
+7654 	MARTIN	 SALESMAN	 7698 	28-SEP-81	 1250 	1400 	30	 30	 SALES	 CHICAGO
+7844	 TURNER	 SALESMAN	 7698	 08-SEP-81	1500	 - 	30	 30	SALES	 CHICAGO
+7876	 ADAMS	 CLERK	 7788	 13-JUL-87	 1100	 - 	20 	20	RESEARCH	 DALLAS
+7900	 JAMES 	CLERK	7698 	03-DEC-81 	950	 - 	30 	30	
+SALES 	CHICAGO
+7934	 MILLER	 CLERK	 7782	 23-JAN-82	1300	 - 	10b	10	ACCOUNTING	 NEW YORK
+ - 	 - 	 - 	 - 	 - 	 - 	 - 	 - 	40	 OPERATIONS 	BOSTON
+
+7.select deptno,count(*)
+from emp 
+group by deptno
+
+output:
+DEPTNO	COUNT(*)
+30	     6
+10	     3
+20	     5
+
+8.select dept.deptno,dept.dname, count(*)
+from emp right join dept
+on emp.deptno = dept.deptno
+group by dept.deptno,dept.dname;
+
+output:
+DEPTNO	DNAME	COUNT(*)
+30 	SALES	 6
+10 	ACCOUNTING	 3
+20 	RESEARCH 	5
+40 	OPERATIONS	 1
+
+8.select e1.ename empname,e2.ename mgrname
+from emp e1,emp e2
+where e1.mgr = e2.empno;
+
+output:
+EMPNAME	MGRNAME
+BLAKE	 KING
+CLARK 	KING
+JONES	 KING
+ALLEN 	BLAKE
+WARD	 BLAKE
+MARTIN 	BLAKE
+TURNER 	BLAKE
+JAMES	 BLAKE
+MILLER 	CLARK
+SCOTT	 JONES
+FORD	 JONES
+ADAMS	 SCOTT
+SMITH	 FORD
