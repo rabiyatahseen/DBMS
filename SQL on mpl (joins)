@@ -118,11 +118,27 @@ on emp.deptno = dept.deptno
 group by dept.deptno,dept.dname;
 
 output:
-DEPTNO	DNAME	COUNT(*)
-30 	SALES	 6
+DEPTNO	DNAME	      COUNT(*)
+30 	SALES	        6
 10 	ACCOUNTING	 3
-20 	RESEARCH 	5
+20 	RESEARCH 	 5
 40 	OPERATIONS	 1
+
+0r
+
+select dept.deptno,dept.dname, count(*)
+from emp right join dept
+on emp.deptno = dept.deptno
+group by dept.deptno,dept.dname
+order by deptno;
+
+output:
+DEPTNO	DNAME	     COUNT(*)
+10	ACCOUNTING	3
+20	RESEARCH	5
+30	SALES	       6
+40	OPERATIONS	1
+
 
 8.select e1.ename empname,e2.ename mgrname
 from emp e1,emp e2
@@ -130,16 +146,16 @@ where e1.mgr = e2.empno;
 
 output:
 EMPNAME	MGRNAME
-BLAKE	 KING
-CLARK 	KING
-JONES	 KING
-ALLEN 	BLAKE
-WARD	 BLAKE
+BLAKE	       KING
+CLARK 	       KING
+JONES	       KING
+ALLEN   	BLAKE
+WARD	       BLAKE
 MARTIN 	BLAKE
 TURNER 	BLAKE
-JAMES	 BLAKE
+JAMES	       BLAKE
 MILLER 	CLARK
-SCOTT	 JONES
-FORD	 JONES
-ADAMS	 SCOTT
-SMITH	 FORD
+SCOTT	       JONES
+FORD	       JONES
+ADAMS	       SCOTT
+SMITH	       FORD
