@@ -112,17 +112,17 @@ DEPTNO	COUNT(*)
 10	     3
 20	     5
 
-8.select dept.deptno,dept.dname, count(*)
+8.select dept.deptno,dept.dname, count(emp.deptno)
 from emp right join dept
 on emp.deptno = dept.deptno
 group by dept.deptno,dept.dname;
 
 output:
-DEPTNO	DNAME	      COUNT(*)
+DEPTNO	DNAME	      COUNT(emp.deptno)
 30 	SALES	        6
 10 	ACCOUNTING	 3
 20 	RESEARCH 	 5
-40 	OPERATIONS	 1
+40 	OPERATIONS	 0
 
 0r
 
