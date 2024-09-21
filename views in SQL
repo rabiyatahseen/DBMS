@@ -1,14 +1,94 @@
 create table R (A varchar(10),B varchar(10),C number(5), D number(10));
+OUTPUT
+Table created
   insert into R values('a1','b1',10,10);
   insert into R values('a2','b2',10,12);
   insert into R values('a3','b3',30,3);
   insert into R values('a4','b4',40,4);
+OUTPUT
+  1 row(s) inserted.
+  1 row(s) inserted.
+  1 row(s) inserted.
+  1 row(s) inserted.
 
   CREATING A VIEW
-
+  create view V as
   select A,C
---from R;
---insert into V values('a5',50);
---select *
---from V;
+  from R;
+OUTPUT
+   View created.
+
+insert into V values('a5',50);
+OUTPUT
+   1 row(s) inserted.
+
+  select *
+  from V;
+OUTPUT
+A  	C
+a1	10
+a2	10
+a3	30
+a4	40
+a5	50
+5 rows selected.
+
+  select * from R;
+OUTPUT
+A	  B	  C 	D
+a1	b1	10	10
+a2	b2	10	12
+a3	b3	30	3
+a4	b4	40	4
+a5	 - 	50	 - 
+5 rows selected.
+
+delete from V where C =10;
 select * from R;
+OUTPUT
+2 row(s) deleted.
+A	  B	  C	  D
+a3	b3	30	3
+a4	b4	40	4
+a5	 - 	50	 - 
+3 rows selected.
+
+create view V1 as
+select A,C
+from R
+where C >=10;
+select * from V1;
+output
+A	  C
+a3	30
+a4	40
+a1	10
+a5	50
+
+delete from V where A = 'a3';
+OUTPUT
+1 row(s) deleted.
+SELECT * FROM V;
+OUTPUT
+A	   C
+a4	40
+a1	10
+a5	50
+3 rows selected.
+
+CREATING VIEWS FROM OTHER VIEWS
+
+create view V2 as
+select A,B,C
+from R;
+
+select * from V2;
+OUTPUT
+View created.
+
+A	  B	  C
+a4	b4	40
+a1	b1	10
+a5	 - 	50
+
+
