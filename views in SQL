@@ -91,4 +91,28 @@ a4	b4	40
 a1	b1	10
 a5	 - 	50
 
+create view V3 as
+select A,B,C
+from R;
+OUT PUT: view created
+select * from V3;
+OUT PUT:
+A	  B	  C
+a4	b4	40
+a1	b1	10
+a5	 - 	50
+a3	b3	30
+a2	b2	10
 
+create view V4 as
+select A,B
+from V3;
+OUTPUT
+View created.
+OUTPUT
+A	  B	
+a4	b4	
+a1	b1	
+a5	 -
+a3	b3	
+a2	b2	
