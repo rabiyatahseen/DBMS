@@ -1,0 +1,14 @@
+create table R (A varchar(10),B varchar(10),C number(5), D number(10));
+  insert into R values('a1','b1',10,10);
+  insert into R values('a2','b2',10,12);
+  insert into R values('a3','b3',30,3);
+  insert into R values('a4','b4',40,4);
+
+  CREATING A VIEW
+
+  select A,C
+--from R;
+--insert into V values('a5',50);
+--select *
+--from V;
+select * from R;
