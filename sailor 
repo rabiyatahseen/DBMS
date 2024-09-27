@@ -1,0 +1,48 @@
+CREATE TABLE Sailors (
+    sid INT PRIMARY KEY,
+    sname VARCHAR(50),
+    rating INT,
+    age INT
+);
+
+
+INSERT INTO Sailors (sid, sname, rating, age) VALUES
+  (22, 'Justin', 17, 22),
+  (38, 'Rusty', 10, 35),
+  (64, 'Hotatio', 7, 35),
+  (71, 'Zor', 10, 16),
+  (74, 'Horatio', 9, 35),
+  (85, 'Art', NULL, NULL),
+  (95, 'Bob', 3, NULL);
+
+CREATE TABLE Reserves (
+    sid INT,
+    bid INT,
+    day VARCHAR(10),
+    FOREIGN KEY (sid) REFERENCES Sailors(sid)
+);
+
+INSERT INTO Reserves (sid, bid, day) VALUES
+  (22, 101, '10/10/95'),
+  (22, 101, '10/8/88'),
+  (22, 184, '10/7/98'),
+  (38, 102, '11/10/98'),
+  (64, 103, '11/6/98'),
+  (71, 104, '11/12/98'),
+  (74, 101, '9/6/95'),
+  (85, 102, '9/8/95'),
+  (95, 18, '9/5/98');
+
+CREATE TABLE Boats (
+    bid INT PRIMARY KEY,
+    bname VARCHAR(50),
+    color VARCHAR(20)
+);
+
+INSERT INTO Boats (bid, bname, color) VALUES
+  (101, 'Boat1', 'Red'),
+  (102, 'Boat2', 'Blue'),
+  (103, 'Boat3', 'Green'),
+  (104, 'Boat4', 'Yellow'),
+  (18, 'Boat5', 'Red'),
+  (184, 'Boat6', 'Blue');
